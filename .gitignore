@@ -1,0 +1,12 @@
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+/.idea/sonarlint
+.DS_Store
+/build
+/captures
+/app/build
+.sonar
+sonar-project.properties

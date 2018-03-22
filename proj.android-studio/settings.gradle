@@ -1,0 +1,4 @@
+include ':libcocos2dx',':Source_Cocos2dx_Cpp_Plugin'
+project(':libcocos2dx').projectDir = new File(settingsDir, '../cocos2d/cocos/platform/android/libcocos2dx')
+include ':VdopiaAdsdemo'
+project(':VdopiaAdsdemo').projectDir = new File(settingsDir, 'app')
