@@ -14,20 +14,32 @@ extern "C" {
 #endif
 
 //// Interstitial Ad methods
-void loadInterstitialAd(const char *parameter) {
+void prefetchInterstitialAd(const char *parameter) {
     Java_SetPluginType();
     JniMethodInfo methodInfo;
-    if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "LoadInterstitialAd",
+    if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "PrefetchInterstitialAd",
                                         "(Ljava/lang/String;)V")) {
-        LOGD("Failed to find static method of interstitial ad load");
+        LOGD("Failed to find static method PrefetchInterstitialAd");
         return;
     }
 
     jstring gameId = methodInfo.env->NewStringUTF(parameter);
 
     methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, gameId);
+}
 
+void loadInterstitialAd(const char *parameter) {
+    Java_SetPluginType();
+    JniMethodInfo methodInfo;
+    if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "LoadInterstitialAd",
+                                        "(Ljava/lang/String;)V")) {
+        LOGD("Failed to find static method LoadInterstitialAd");
+        return;
+    }
 
+    jstring gameId = methodInfo.env->NewStringUTF(parameter);
+
+    methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, gameId);
 }
 
 
@@ -37,7 +49,7 @@ void showInterstitialAd() {
 
     if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "ShowInterstitialAd",
                                         "()V")) {
-        LOGD("Failed to find static method of interstitial ad show");
+        LOGD("Failed to find static method ShowInterstitialAd");
         return;
     }
 
@@ -47,7 +59,7 @@ void showInterstitialAd() {
 
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adLoadedInterstitial(JNIEnv *env,
-                                                                       jobject jobj) {
+                                                                                 jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -59,7 +71,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adLoadedInterstitial
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adFailedInterstitial(JNIEnv *env,
-                                                                       jobject jobj) {
+                                                                                 jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -71,7 +83,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adFailedInterstitial
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adDismissedInterstitial(JNIEnv *env,
-                                                                                 jobject jobj) {
+                                                                                    jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -83,7 +95,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adDismissedInterstit
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adClickedInterstitial(JNIEnv *env,
-                                                                        jobject jobj) {
+                                                                                  jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -95,7 +107,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adClickedInterstitia
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownInterstitial(JNIEnv *env,
-                                                                      jobject jobj) {
+                                                                                jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -109,21 +121,34 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownInterstitial(
 
 
 // Reward Ad methods
-void loadRewardedAd(const char *param) {
+void prefetchRewardedAd(const char *param) {
     Java_SetPluginType();
     JniMethodInfo methodInfo;
 
-    if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "LoadRewardAd",
+    if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "PrefetchRewardAd",
                                         "(Ljava/lang/String;)V")) {
-        LOGD("Failed to find static method of reward  ad load");
+        LOGD("Failed to find static method PrefetchRewardAd");
         return;
     }
 
     jstring jgameId = methodInfo.env->NewStringUTF(param);
 
     methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, jgameId);
+}
 
+void loadRewardedAd(const char *param) {
+    Java_SetPluginType();
+    JniMethodInfo methodInfo;
 
+    if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "LoadRewardAd",
+                                        "(Ljava/lang/String;)V")) {
+        LOGD("Failed to find static method LoadRewardAd");
+        return;
+    }
+
+    jstring jgameId = methodInfo.env->NewStringUTF(param);
+
+    methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, jgameId);
 }
 
 void showRewardedAd(const char *secretKey, const char *userId, const char *rewardname,
@@ -147,7 +172,7 @@ void showRewardedAd(const char *secretKey, const char *userId, const char *rewar
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adLoadedRewarded(JNIEnv *env,
-                                                                   jobject jobj) {
+                                                                             jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -162,7 +187,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adLoadedRewarded(JNI
 
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adFailedRewarded(JNIEnv *env,
-                                                                   jobject jobj) {
+                                                                             jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -175,7 +200,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adFailedRewarded(JNI
 
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adDismissedRewarded(JNIEnv *env,
-                                                                      jobject jobj) {
+                                                                                jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -188,7 +213,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adDismissedRewarded(
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adCompletedRewarded(JNIEnv *env,
-                                                                      jobject jobj) {
+                                                                                jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -201,7 +226,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adCompletedRewarded(
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownErrorRewarded(JNIEnv *env,
-                                                                       jobject jobj) {
+                                                                                 jobject jobj) {
 
     auto scene = Director::getInstance()->getRunningScene();
 
@@ -215,7 +240,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownErrorRewarded
 
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownRewarded(JNIEnv *env,
-                                                                  jobject jobj) {
+                                                                            jobject jobj) {
     auto scene = Director::getInstance()->getRunningScene();
 
     if (typeid(*scene) == typeid(HelloWorld)) {
@@ -263,7 +288,7 @@ void setAdRequestAppParams(const char *appBundle, const char *appDomain, const c
 
     if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "SetAdRequestAppParams",
                                         "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V")) {
-        LOGD("Failed to find static method of interstitial ad load");
+        LOGD("Failed to find static method SetAdRequestAppParams");
         return;
     }
 
@@ -284,7 +309,7 @@ void Java_SetPluginType() {
     JniMethodInfo methodInfo;
     if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "SelectPluginType",
                                         "(Ljava/lang/String;)V")) {
-        LOGD("Failed to find static method of select plugin type");
+        LOGD("Failed to find static method SelectPluginType");
         return;
     }
     jstring pluginType = methodInfo.env->NewStringUTF(plugin);

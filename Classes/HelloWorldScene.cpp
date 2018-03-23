@@ -73,18 +73,9 @@ bool HelloWorld::init() {
                 if (type == cocos2d::ui::Widget::TouchEventType::ENDED) {
                     // do something
 
-                    // String age, String birthDate, String gender, String maritalStatus,
-                    //String ethnicity, String dmaCode, String postal, String curPostal,
-                    //           String latitude, String longitude
-                    setAdRequestUserParams("23", "23/11/1990", "m", "single", "Asian", "999",
-                                           "123123", "321321", "qwe", "wrt"),
-
-                    setAdRequestAppParams("Vdopia", "Vdopia", "Vdopia-demo.com",
-                                                  "vdopia.com", "",
-                                                  "Movie");
                     CCLOG("loadInterstitialAdFunction");
                     const char *apiKey = "r7BmFo";
-                    loadInterstitialAd(apiKey);loadInterstitialAd(apiKey);
+                    loadInterstitialAd(apiKey);
                 }
             });
 
@@ -108,10 +99,18 @@ bool HelloWorld::init() {
             [](Ref *pSender, cocos2d::ui::Widget::TouchEventType type) {
                 if (type == cocos2d::ui::Widget::TouchEventType::ENDED) {
 
+                    /*(const char *age, const char *birthdate, const char *gender,
+                       const char *maritalStatus, const char *ethnicity, const char *dmaCode,
+                       const char *postal, const char *currpostal,
+                       const char *latitude, const char *longitude)*/
                     setAdRequestUserParams("23", "23/11/1990", "m", "single", "Asian", "999",
                                            "123123", "421340", "321321", "12313");
-                    setAdRequestAppParams("Vdopia", "Vdopia", "Vdopia-demo.com", "vdopia.com", "",
-                                          "Movie");
+
+                    /*(const char *appBundle, const char *appDomain, const char *appName,
+                       const char *appStoreUrl, const char *appCategory, const char *publisherDomain)*/
+                    setAdRequestAppParams("Vdopia", "Vdopia", "Vdopia-demo.com",
+                                          "vdopia.com", "", "Movie");
+
                     CCLOG("loadRewardAdFunction");
                     const char *apiKey = "r7BmFo";
                     loadRewardedAd(apiKey);
@@ -139,6 +138,8 @@ bool HelloWorld::init() {
                 if (type == cocos2d::ui::Widget::TouchEventType::ENDED) {
                     CCLOG("showInterstitialAd");
                     showInterstitialAd();
+                    const char *apiKey = "r7BmFo";
+                    prefetchInterstitialAd(apiKey); //prefetch next interstitial ad
                 }
             });
     showInterstitialAdButton->setEnabled(false);
@@ -166,11 +167,30 @@ bool HelloWorld::init() {
                 if (type == cocos2d::ui::Widget::TouchEventType::ENDED) {
                     CCLOG("showRewardAdFunction");
                     showRewardedAd("qj5ebyZ0F0vzW6yg", "Chocolate1", "coin", "30");
+                    const char *apiKey = "r7BmFo";
+                    prefetchRewardedAd(apiKey);  //prefetch next rewarded ad
                 }
             });
     showRewardButton->setEnabled(false);
     showRewardButton->setTitleColor(Color3B(156, 156, 156));
     showRewardButtonBg->addChild(showRewardButton, 1, ShowRewardAdButtonTag);
+
+    /*(const char *age, const char *birthdate, const char *gender,
+       const char *maritalStatus, const char *ethnicity, const char *dmaCode,
+       const char *postal, const char *currpostal,
+       const char *latitude, const char *longitude)*/
+    setAdRequestUserParams("23", "23/11/1990", "m", "single", "Asian", "999",
+                           "123123", "421340", "321321", "12313");
+
+    /*(const char *appBundle, const char *appDomain, const char *appName,
+       const char *appStoreUrl, const char *appCategory, const char *publisherDomain)*/
+    setAdRequestAppParams("Vdopia", "Vdopia", "Vdopia-demo.com",
+                          "vdopia.com", "", "Movie");
+
+    const char *apiKey = "r7BmFo";
+    prefetchInterstitialAd(apiKey); //prefetch intestitial ad
+    prefetchRewardedAd(apiKey); //prefetch rewarded ad
+
     return true;
 }
 
