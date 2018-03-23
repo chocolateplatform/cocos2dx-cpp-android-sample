@@ -7,8 +7,8 @@ It was 'exported' to Android Studio in order to create an Android application.
 
 Please use as a reference guide in your own Cocos2dx application where you want to earn money with ads! 
 
-Watch the demo video of this app running a rewarded ad:
+WATCH THE REWARDED AD DEMO:
 https://goo.gl/RP7QfQ
 
-And here is the interstitial demo video:
+WATCH THE INTERSTITIAL AD DEMO:
 https://goo.gl/zEgCKZ
