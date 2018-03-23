@@ -10,12 +10,13 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- Optional -->
+    <!--
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />  -->
 
     <application
         android:name="android.support.multidex.MultiDexApplication"
@@ -41,6 +42,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Baidu -->
+        <!-- Please contact Chocolate for your own Baidu app license -->
+        <meta-data
+            android:name="app_license"
+            android:value="3093a807a6d4738e5c2fe812d26d657d"/>
+        <provider
+            android:name="com.duapps.ad.stats.DuAdCacheProvider"
+            android:authorities="${applicationId}.DuAdCacheProvider"
+            android:exported="false">
+        </provider>
+        <!-- End Baidu -->
     </application>
+
+    <meta-data
+        android:name="com.google.android.gms.version"
+        android:value="@integer/google_play_services_version"/>
 
 </manifest>
