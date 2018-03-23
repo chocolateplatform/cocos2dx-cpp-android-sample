@@ -17,3 +17,9 @@
 #}
 -dontwarn org.apache.**
 -keep class org.apache.http.** { *; }
+
+-dontwarn org.cocos2dx.**
+-keep class org.cocos2dx.** { *; }
+
+-dontwarn com.vdopia.**
+-keep class com.vdopia.** { *; }

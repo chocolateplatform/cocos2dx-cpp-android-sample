@@ -84,8 +84,6 @@ bool HelloWorld::init() {
                                                   "Movie");
                     CCLOG("loadInterstitialAdFunction");
                     const char *apiKey = "r7BmFo";
-                    CCLOG("loadInterstitialAdFunction");
-                    const char *apiKey = "r7BmFo";
                     loadInterstitialAd(apiKey);loadInterstitialAd(apiKey);
                 }
             });

@@ -97,8 +97,9 @@ android {
         jcenter()
         maven { url 'https://jitpack.io' }
         maven { url "https://adcolony.bintray.com/AdColony" }
+        maven { url "https://dl.bintray.com/ironsource-mobile/android-sdk" }
         maven { url "https://dl.bintray.com/vdopiacorp/sdk" }
-        maven { url 'https://maven.google.com' }
+        google()
     }
     repositories {
         flatDir {
@@ -109,23 +110,57 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':libcocos2dx')
-    compile 'com.vdopia.ads.lw:coresdk:2.5.2.5'
+    compile("com.vdopia.ads.lw:coresdk:2.5.2.12")
+    //our mediation sdk, which also includes Chocolate Platform demand
+    compile("com.vdopia.ads.lw:adcolony-adapter:1.0.6")
+    compile("com.vdopia.ads.lw:applovin-adapter:1.0.6")
+    compile("com.vdopia.ads.lw:baidu-adapter:1.0.5")
+    compile("com.vdopia.ads.lw:chartboost-adapter:1.0.7")
+    compile("com.vdopia.ads.lw:facebook-adapter:1.0.5")
+    compile("com.vdopia.ads.lw:google-adapter:1.0.6")
+    compile("com.vdopia.ads.lw:inmobi-adapter:1.0.6")
+    compile("com.vdopia.ads.lw:ironsrc-adapter:1.0.6")
+    compile("com.vdopia.ads.lw:loopme-adapter:1.0.5")
+    compile("com.vdopia.ads.lw:mopub-adapter:1.0.7") {
+        //If you use your own version of exoplayer, uncomment below
+        //exclude group: 'com.google.android.exoplayer'
+    }
+    compile("com.vdopia.ads.lw:tapjoy-adapter:1.0.5")
+    compile("com.vdopia.ads.lw:unity-adapter:1.0.8")
+    compile("com.vdopia.ads.lw:vungle-adapter:1.0.5")
+    /*
+     * Note for Vungle: we also have vungle-adapter-no-dagger if you are using your own
+     * version of dagger.
+     */
+    compile("com.vdopia.ads.lw:yahoo-adapter:1.0.5")
+
+    /*
+     *  Cordova Note: If your project is Cordova, then uncomment the following:
+     */
+    //compile("com.vdopia.ads.lw:cordova-plugin:1.0.3")
+
+    /*
+     *  Cocos2dx Note: If your project is Cocos2dx, then uncomment the following:
+     */
     compile("com.vdopia.ads.lw:cocos2dx-plugin:1.0.3")
+
+    /*
+     * Note: If you use our Google adapter, then we require play-services-ads version 11.0.0 or higher
+     * since our Google adapter contains the latest and greatest Google ad units.
+     */
     compile 'com.google.android.gms:play-services-ads:11.8.0'
+
     compile 'com.android.support:multidex:1.0.2'
-    compile 'com.vdopia.ads.lw:adcolony-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:applovin-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:chartboost-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:facebook-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:google-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:inmobi-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:mopub-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:tapjoy-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:unity-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:vungle-adapter:1.0.4'
-    compile 'com.vdopia.ads.lw:yahoo-adapter:1.0.4'
-    compile 'com.devbrackets.android:exomedia:4.0.3'
     compile 'com.squareup.picasso:picasso:2.5.2'
+    compile('com.devbrackets.android:exomedia:4.0.3') {
+        //If you use your own version of exoplayer, uncomment below
+        //exclude group: 'com.google.android.exoplayer'
+    }
+
+    /*
+     * Note: If you use the Baidu adapter, then please include:
+     */
+    compile("com.android.support:palette-v7:26.0.2")
 }
 configurations.all {
     resolutionStrategy.eachDependency { DependencyResolveDetails details ->
