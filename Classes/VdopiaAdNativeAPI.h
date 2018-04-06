@@ -17,8 +17,8 @@ extern "C" {
 void Java_SetPluginType() ;
 
 ////   Interstitial Ad methods
-void prefetchInterstitialAd(const char *parameter);
-void loadInterstitialAd(const char *parameter);
+void prefetchInterstitialAd(const char *appKey);
+void loadInterstitialAd(const char *appKey);
 void showInterstitialAd();
 
 
@@ -30,8 +30,8 @@ void adClickedInterstitial();
 void adShownInterstitial();
 
 //   Rewarded Ad methods
-void prefetchRewardedAd(const char *parameter);
-void loadRewardedAd(const char *parameter);
+void prefetchRewardedAd(const char *appKey);
+void loadRewardedAd(const char *appKey);
 void showRewardedAd(const char *secretkey, const char *userId, const char *rewardname,
                     const char *amount);
 
