@@ -43,13 +43,13 @@ void adCompletedRewarded();
 void adShownErrorRewarded();
 void adShownRewarded();
 
-void setAdRequestUserParams(const char string[3], const char string1[11], const char string2[2],
-                            const char string3[7], const char string4[6], const char string5[4],
-                            const char string6[7], const char string7[7], const char string8[7],
-                            const char string9[6]);
+void setAdRequestUserParams(const char *age, const char *birthdate, const char *gender,
+                            const char *maritalStatus, const char *ethnicity, const char *dmaCode,
+                            const char *postal, const char *currpostal, 
+                            const char *latitude, const char *longitude);
 
-void setAdRequestAppParams(const char string[7], const char string1[7], const char string2[16],
-                           const char string3[11], const char string4[1], const char string5[6]);
+void setAdRequestAppParams(const char *appBundle, const char *appDomain, const char *appName,
+                           const char *appStoreUrl, const char *appCategory, const char *publisherDomain);
 
 #endif
 #ifdef __cplusplus
