@@ -121,10 +121,11 @@ dependencies {
     compile("com.vdopia.ads.lw:inmobi-adapter:1.0.6")
     compile("com.vdopia.ads.lw:ironsrc-adapter:1.0.8")
     compile("com.vdopia.ads.lw:loopme-adapter:1.0.5")
-    compile("com.vdopia.ads.lw:mopub-adapter:1.0.7") {
+    compile("com.vdopia.ads.lw:tapjoy-adapter:1.0.5") {
         //If you use your own version of exoplayer, uncomment below
         //exclude group: 'com.google.android.exoplayer'
     }
+    compile("com.vdopia.ads.lw:ogury-adapter:1.0.1")
     compile("com.vdopia.ads.lw:tapjoy-adapter:1.0.5")
     compile("com.vdopia.ads.lw:unity-adapter:1.0.8")
     compile("com.vdopia.ads.lw:vungle-adapter:1.0.5")
@@ -132,7 +133,7 @@ dependencies {
      * Note for Vungle: we also have vungle-adapter-no-dagger if you are using your own
      * version of dagger.
      */
-    compile("com.vdopia.ads.lw:yahoo-adapter:1.0.5")
+    compile("com.vdopia.ads.lw:youappi-adapter:1.0.1")
 
     /*
      *  Cordova Note: If your project is Cordova, then uncomment the following:
