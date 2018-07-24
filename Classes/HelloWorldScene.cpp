@@ -188,8 +188,7 @@ bool HelloWorld::init() {
                           "vdopia.com", "", "Movie");
 
     const char *apiKey = "r7BmFo";
-    prefetchInterstitialAd(apiKey); //prefetch intestitial ad
-    prefetchRewardedAd(apiKey); //prefetch rewarded ad
+    chocolateInit(apiKey); // initialize chocolate platform
 
     return true;
 }

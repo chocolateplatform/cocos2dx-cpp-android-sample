@@ -112,7 +112,7 @@ dependencies {
     implementation project(':libcocos2dx')
 
     //If your application is COCOS-2DX, uncomment the following line
-    implementation("com.vdopia.ads.lw:cocos2dx-plugin:1.0.4")
+    implementation("com.vdopia.ads.lw:cocos2dx-plugin:1.0.5")
 
     implementation("com.vdopia.ads.lw:coresdk:2.5.5.1")
     implementation("com.vdopia.ads.lw:adcolony-adapter:1.0.8")

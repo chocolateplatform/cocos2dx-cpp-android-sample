@@ -13,6 +13,20 @@ using namespace cocos2d;
 extern "C" {
 #endif
 
+void chocolateInit(const char *appKey) {
+    Java_SetPluginType();
+    JniMethodInfo methodInfo;
+    if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "Init",
+                                        "(Ljava/lang/String;)V")) {
+        LOGD("Failed to find static method Init");
+        return;
+    }
+
+    jstring gameId = methodInfo.env->NewStringUTF(appKey);
+
+    methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, gameId);
+}
+
 //// Interstitial Ad methods
 void prefetchInterstitialAd(const char *parameter) {
     Java_SetPluginType();

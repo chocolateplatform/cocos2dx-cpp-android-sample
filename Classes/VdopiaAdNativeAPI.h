@@ -16,7 +16,10 @@ extern "C" {
 //set plugin type here is cpp
 void Java_SetPluginType() ;
 
-////   Interstitial Ad methods
+//   Chocolate Init method
+void chocolateInit(const char *appKey);
+
+//   Interstitial Ad methods
 void prefetchInterstitialAd(const char *appKey);
 void loadInterstitialAd(const char *appKey);
 void showInterstitialAd();

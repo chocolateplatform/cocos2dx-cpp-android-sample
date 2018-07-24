@@ -13,8 +13,22 @@ using namespace cocos2d;
 extern "C" {
 #endif
 
+void chocolateInit(const char *appKey) {
+    Java_SetPluginType();
+    JniMethodInfo methodInfo;
+    if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "Init",
+                                        "(Ljava/lang/String;)V")) {
+        LOGD("Failed to find static method Init");
+        return;
+    }
+
+    jstring gameId = methodInfo.env->NewStringUTF(appKey);
+
+    methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, gameId);
+}
+
 //// Interstitial Ad methods
-void prefetchInterstitialAd(const char *parameter) {
+void prefetchInterstitialAd(const char *appKey) {
     Java_SetPluginType();
     JniMethodInfo methodInfo;
     if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "PrefetchInterstitialAd",
@@ -23,12 +37,12 @@ void prefetchInterstitialAd(const char *parameter) {
         return;
     }
 
-    jstring gameId = methodInfo.env->NewStringUTF(parameter);
+    jstring gameId = methodInfo.env->NewStringUTF(appKey);
 
     methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, gameId);
 }
 
-void loadInterstitialAd(const char *parameter) {
+void loadInterstitialAd(const char *appKey) {
     Java_SetPluginType();
     JniMethodInfo methodInfo;
     if (!JniHelper::getStaticMethodInfo(methodInfo, CLASS_NAME, "LoadInterstitialAd",
@@ -37,7 +51,7 @@ void loadInterstitialAd(const char *parameter) {
         return;
     }
 
-    jstring gameId = methodInfo.env->NewStringUTF(parameter);
+    jstring gameId = methodInfo.env->NewStringUTF(appKey);
 
     methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, gameId);
 }
@@ -121,11 +135,11 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownInterstitial(
 
 
 // Reward Ad methods
-void prefetchRewardedAd(const char *param) {
+void prefetchRewardedAd(const char *appKey) {
     //not implemented
 }
 
-void loadRewardedAd(const char *param) {
+void loadRewardedAd(const char *appKey) {
     //not implemented
 }
 
