@@ -190,67 +190,70 @@ bool HelloWorld::init() {
     const char *apiKey = "r7BmFo";
     chocolateInit(apiKey); // initialize chocolate platform
 
+	setInterstitialListener(this);
+	setRewardedListener(this);
+
     return true;
 }
 
 
-void HelloWorld::interstitialAdLoaded() {
+void HelloWorld::adLoadedInterstitial() {
     CCLOG("interstitialAdLoaded");
     this->setButtonVisible(true, ShowInterestialAdButtonTag);
     this->setButtonVisible(false, LoadInterestialAdButtonTag);
 }
 
-void HelloWorld::interstitialAdShown() {
+void HelloWorld::adShownInterstitial() {
     CCLOG("interstitialAdShown");
 }
 
-void HelloWorld::interstitialAdFailed() {
+void HelloWorld::adFailedInterstitial() {
     CCLOG("interstitialAdFailed");
     this->setButtonVisible(false, ShowInterestialAdButtonTag);
     this->setButtonVisible(true, LoadInterestialAdButtonTag);
 }
 
-void HelloWorld::interstitialAdDismissed() {
+void HelloWorld::adDismissedInterstitial() {
     CCLOG("interstitialAdDismissed");
     this->setButtonVisible(false, ShowInterestialAdButtonTag);
     this->setButtonVisible(true, LoadInterestialAdButtonTag);
 }
 
-void HelloWorld::interstitialAdClicked() {
+void HelloWorld::adClickedInterstitial() {
     CCLOG("interstitialAdClicked");
 }
 
-void HelloWorld::rewardAdLoaded() {
+void HelloWorld::adLoadedRewarded() {
     CCLOG("rewardAdLoaded");
 
     this->setButtonVisible(true, ShowRewardAdButtonTag);
     this->setButtonVisible(false, LoadRewardAdButtonTag);
 }
 
-void HelloWorld::rewardAdFailed() {
+void HelloWorld::adFailedRewarded() {
     CCLOG("rewardAdFailed");
     this->setButtonVisible(false, ShowRewardAdButtonTag);
     this->setButtonVisible(true, LoadRewardAdButtonTag);
 
 }
 
-void HelloWorld::rewardAdCompleted() {
+void HelloWorld::adCompletedRewarded() {
     CCLOG("rewardAdCompleted");
     this->setButtonVisible(false, ShowRewardAdButtonTag);
     this->setButtonVisible(true, LoadRewardAdButtonTag);
 }
 
-void HelloWorld::rewardAdShown() {
+void HelloWorld::adShownRewarded() {
     CCLOG("rewardAdShown");
 }
 
-void HelloWorld::rewardAdShownError() {
+void HelloWorld::adShownErrorRewarded() {
     CCLOG("rewardAdShownError");
     this->setButtonVisible(false, ShowRewardAdButtonTag);
     this->setButtonVisible(true, LoadRewardAdButtonTag);
 }
 
-void HelloWorld::rewardAdDismissed() {
+void HelloWorld::adDismissedRewarded() {
     CCLOG("rewardAdDismissed");
 
     this->setButtonVisible(false, ShowRewardAdButtonTag);

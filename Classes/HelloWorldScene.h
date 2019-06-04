@@ -5,42 +5,34 @@
 #include <ui/UIButton.h>
 #include "cocos2d.h"
 #include "VdopiaAdNativeAPI.h"
+#include "VdopiaInterstitialListener.h"
+#include "VdopiaRewardedListener.h"
 
-class HelloWorld : public cocos2d::Scene {
+class HelloWorld : public cocos2d::Scene,
+		           public VdopiaInterstitialListener,
+		           public VdopiaRewardedListener {
 public:
     static cocos2d::Scene *createScene();
 
-    virtual bool init();
+    bool init() override;
 
     // a selector callback
     void menuCloseCallback(cocos2d::Ref *pSender);
 
     // Interstitial Ad Methods & Callbacks
-
-    void interstitialAdLoaded();
-
-    void interstitialAdFailed();
-
-    void interstitialAdDismissed();
-
-    void interstitialAdClicked();
-
-    void interstitialAdShown();
-
+    void adLoadedInterstitial() override;
+    void adFailedInterstitial() override; 
+    void adDismissedInterstitial() override; 
+    void adClickedInterstitial() override; 
+    void adShownInterstitial() override; 
 
     // Rewarded Ad Methods & Callbacks
-
-    void rewardAdLoaded();
-
-    void rewardAdFailed();
-
-    void rewardAdDismissed();
-
-    void rewardAdShownError();
-
-    void rewardAdCompleted();
-
-    void rewardAdShown();
+    void adLoadedRewarded() override;
+    void adFailedRewarded() override;
+    void adDismissedRewarded()  override;
+    void adCompletedRewarded() override;
+    void adShownErrorRewarded() override;
+    void adShownRewarded() override;
 
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);

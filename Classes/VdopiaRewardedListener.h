@@ -3,8 +3,6 @@
 
 class VdopiaRewardedListener {
 public:
-	VdopiaRewardedListener();
-
 	virtual void adLoadedRewarded() = 0;
 	virtual void adFailedRewarded() = 0;
 	virtual void adDismissedRewarded() = 0;

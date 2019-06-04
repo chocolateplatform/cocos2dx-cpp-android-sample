@@ -3,8 +3,6 @@
 
 class VdopiaInterstitialListener {
 public:
-	VdopiaInterstitialListener();
-
 	virtual void adLoadedInterstitial() = 0;
 	virtual void adFailedInterstitial() = 0;
 	virtual void adDismissedInterstitial() = 0;
