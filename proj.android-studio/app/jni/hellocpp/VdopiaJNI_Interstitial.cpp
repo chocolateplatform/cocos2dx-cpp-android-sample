@@ -1,17 +1,24 @@
 #include <platform/android/jni/JniHelper.h>
-#include "HelloWorldScene.h"
-#include  "VdopiaAdNativeAPI.h"
+#include <android/log.h>
+#include "VdopiaAdNativeAPI.h"
+#include "VdopiaInterstitialListener.h"
+#include "../../../../Classes/VdopiaInterstitialListener.h"
 
 #define LOG_TAG    "VdopiaAdsJNI"
 #define LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
 #define CLASS_NAME  "com/vdopia/cocos2dx/plugin/VdopiaPlugin"
-
 
 using namespace cocos2d;
 
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+VdopiaInterstitialListener* inter_listener = nullptr;
+
+void setInterstitialListener(VdopiaInterstitialListener* listener) {
+	inter_listener = listener;
+}	
 
 void chocolateInit(const char *appKey) {
     Java_SetPluginType();
@@ -71,68 +78,43 @@ void showInterstitialAd() {
     methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
 }
 
+// Now recieve Java function calls and pass them to C++
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adLoadedInterstitial(JNIEnv *env,
                                                                                  jobject jobj) {
+        if(inter_listener == nullptr) return;
 
-    auto scene = Director::getInstance()->getRunningScene();
-
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->interstitialAdLoaded();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
+		inter_listener->adLoadedInterstitial();
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adFailedInterstitial(JNIEnv *env,
                                                                                  jobject jobj) {
+        if(inter_listener == nullptr) return;
 
-    auto scene = Director::getInstance()->getRunningScene();
-
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->interstitialAdFailed();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
+        inter_listener->adFailedInterstitial();
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adDismissedInterstitial(JNIEnv *env,
                                                                                     jobject jobj) {
+        if(inter_listener == nullptr) return;
 
-    auto scene = Director::getInstance()->getRunningScene();
-
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->interstitialAdDismissed();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
+        inter_listener->adDismissedInterstitial();
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adClickedInterstitial(JNIEnv *env,
                                                                                   jobject jobj) {
+		if(inter_listener == nullptr) return;
 
-    auto scene = Director::getInstance()->getRunningScene();
-
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->interstitialAdClicked();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
+        inter_listener->adClickedInterstitial();
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownInterstitial(JNIEnv *env,
                                                                                 jobject jobj) {
 
-    auto scene = Director::getInstance()->getRunningScene();
+	if(inter_listener == nullptr) return;
 
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->interstitialAdShown();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
-
+  	inter_listener->adShownInterstitial();
 }
-
 
 // Reward Ad methods
 void prefetchRewardedAd(const char *appKey) {
@@ -190,6 +172,7 @@ Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownRewarded(JNIE
     //not implemented
 
 }
+// End of Java to C++
 
 
 void setAdRequestUserParams(const char *age, const char *birthdate, const char *gender,

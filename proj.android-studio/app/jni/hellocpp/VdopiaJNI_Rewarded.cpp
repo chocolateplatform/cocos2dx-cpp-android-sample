@@ -1,6 +1,6 @@
 #include <platform/android/jni/JniHelper.h>
-#include "HelloWorldScene.h"
-#include  "VdopiaAdNativeAPI.h"
+#include "VdopiaAdNativeAPI.h"
+#include "VdopiaRewardedListener.h"
 
 #define LOG_TAG    "VdopiaAdsJNI"
 #define LOGD(...)  __android_log_print(ANDROID_LOG_DEBUG,LOG_TAG,__VA_ARGS__)
@@ -12,6 +12,12 @@ using namespace cocos2d;
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+VdopiaRewardedListener* rewarded_listener = nullptr;
+
+void setRewardedListener(VdopiaRewardedListener* listener) {
+	rewarded_listener = listener;
+}
 
 void chocolateInit(const char *appKey) {
     Java_SetPluginType();
@@ -118,18 +124,15 @@ void showRewardedAd(const char *secretKey, const char *userId, const char *rewar
     methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, jsecretKey,
                                          juserId, jrewardName, jamount);
 }
+
+// Now recieve Java function calls and pass them to C++
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adLoadedRewarded(JNIEnv *env,
                                                                              jobject jobj) {
 
-    auto scene = Director::getInstance()->getRunningScene();
-
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        LOGD("ad Loaded Rewarded");
-        static_cast<HelloWorld *>(scene)->rewardAdLoaded();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
+	if(rewarded_listener == nullptr) return;
+       
+	rewarded_listener->adLoadedRewarded();
 
 }
 
@@ -137,66 +140,44 @@ JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adFailedRewarded(JNIEnv *env,
                                                                              jobject jobj) {
 
-    auto scene = Director::getInstance()->getRunningScene();
-
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->rewardAdFailed();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
+   	if(rewarded_listener == nullptr) return;
+       
+	rewarded_listener->adFailedRewarded();
 }
 
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adDismissedRewarded(JNIEnv *env,
                                                                                 jobject jobj) {
+	if(rewarded_listener == nullptr) return;
 
-    auto scene = Director::getInstance()->getRunningScene();
-
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->rewardAdDismissed();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
-
+	rewarded_listener->adDismissedRewarded();
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adCompletedRewarded(JNIEnv *env,
                                                                                 jobject jobj) {
+	if(rewarded_listener == nullptr) return;
 
-    auto scene = Director::getInstance()->getRunningScene();
-
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->rewardAdCompleted();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
+	rewarded_listener->adCompletedRewarded();
 
 }
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownErrorRewarded(JNIEnv *env,
                                                                                  jobject jobj) {
+	if(rewarded_listener == nullptr) return;
 
-    auto scene = Director::getInstance()->getRunningScene();
-
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->rewardAdShownError();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
-
+	rewarded_listener->adShownErrorRewarded();
 }
 
 JNIEXPORT void JNICALL
 Java_com_vdopia_cocos2dx_plugin_VdopiaSDKNativeEventHandler_adShownRewarded(JNIEnv *env,
                                                                             jobject jobj) {
-    auto scene = Director::getInstance()->getRunningScene();
 
-    if (typeid(*scene) == typeid(HelloWorld)) {
-        static_cast<HelloWorld *>(scene)->rewardAdShown();
-    } else {
-        LOGD("gameScene is still NULL");
-    }
+	if(rewarded_listener == nullptr) return;
+
+    rewarded_listener->adShownRewarded();
 }
+// End of Java to C++
+
 
 
 void setAdRequestUserParams(const char *age, const char *birthdate, const char *gender,
