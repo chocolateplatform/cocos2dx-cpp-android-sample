@@ -20,19 +20,19 @@ public:
     void menuCloseCallback(cocos2d::Ref *pSender);
 
     // Interstitial Ad Methods & Callbacks
-  	void adLoadedInterstitial() override;
+    void adLoadedInterstitial() override;
     void adFailedInterstitial() override; 
     void adDismissedInterstitial() override; 
     void adClickedInterstitial() override; 
     void adShownInterstitial() override; 
 
     // Rewarded Ad Methods & Callbacks
-	void adLoadedRewarded() override;
-	void adFailedRewarded() override;
-	void adDismissedRewarded()  override;
-	void adCompletedRewarded() override;
-	void adShownErrorRewarded() override;
-	void adShownRewarded() override;
+    void adLoadedRewarded() override;
+    void adFailedRewarded() override;
+    void adDismissedRewarded()  override;
+    void adCompletedRewarded() override;
+    void adShownErrorRewarded() override;
+    void adShownRewarded() override;
 
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
